@@ -1,7 +1,6 @@
 package Showdown;
 
 import CardGame.CardGame;
-import CardGame.Player;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
@@ -9,8 +8,8 @@ import java.util.List;
 
 public class ShowdownGame extends CardGame<ShowdownCard, ShowdownDeck, ShowdownPlayer> {
     private final List<ShowdownPlayer> players = new ArrayList<>();
-    private ShowdownDeck deck = new ShowdownDeck();
-    private ShowdownDeck abandonedDeck = new ShowdownDeck();
+    private ShowdownDeck deck;
+    private ShowdownDeck abandonedDeck;
 
     // <editor-fold desc="getter & setter">
     @Override
@@ -61,15 +60,15 @@ public class ShowdownGame extends CardGame<ShowdownCard, ShowdownDeck, ShowdownP
     }
 
     @Override
-    protected boolean gameOver() {
-        return players.getFirst().getHand().isEmpty();
-    }
-
-    @Override
     protected void takeTurn(ShowdownPlayer player, ShowdownDeck deck, ShowdownDeck abandonedDeck, List<Pair<ShowdownCard, ShowdownPlayer>> turnCards) {
         var showCard = player.show(null); //大家看不到出牌
         turnCards.add(Pair.of(showCard, player));
         abandonedDeck.addCard(showCard);
+    }
+
+    @Override
+    protected boolean gameOver(int turn) {
+        return turn > 13;
     }
 
     @Override

@@ -96,11 +96,14 @@ public abstract class CardGame<C, D, P> {
      **/
     protected void gameProgress() {
         int turn = 1;
-        while (!gameOver()) {
+        while (!gameOver(turn)) {
             System.out.printf("Turn 【%d】 \r\n", turn);
             List<Pair<C, P>> turnCards = new ArrayList<>();
             for(var player : getPlayers()) {
                 takeTurn(player, getDeck(), getAbandonedDeck(), turnCards);
+                if(gameOver(turn)) {
+                    break;
+                }
             }
             turnOver(turnCards);
             turn++;
@@ -110,7 +113,7 @@ public abstract class CardGame<C, D, P> {
     /**
      遊戲結束判斷
      */
-    protected abstract boolean gameOver();
+    protected abstract boolean gameOver(int turn);
 
     /**
      玩家回合

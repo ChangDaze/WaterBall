@@ -1,16 +1,11 @@
 package CardGame;
 
-import Showdown.ShowdownCard;
-import Showdown.ShowdownDeck;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 public abstract class Player<C> {
-    private List<C> hand = new ArrayList<>();
+    private List<C> hands = new ArrayList<>();
     private String name;
 
     // <editor-fold desc="getter & setter">
@@ -18,12 +13,8 @@ public abstract class Player<C> {
         return name;
     }
 
-    public void setName(String newName) {
-        name = newName;
-    }
-
-    public List<C> getHand() {
-        return hand;
+    public List<C> getHands() {
+        return hands;
     }
     // </editor-fold>
 
@@ -39,8 +30,8 @@ public abstract class Player<C> {
     出牌
      **/
     public C show(C currentCard){
-        var card = getHand().getLast();
-        getHand().removeLast();
+        var card = getHands().getLast();
+        getHands().removeLast();
         return card;
     }
 
@@ -48,6 +39,6 @@ public abstract class Player<C> {
     加入手牌
      **/
     public void addHand(C card) {
-        getHand().add(card);
+        getHands().add(card);
     }
 }
