@@ -4,5 +4,6 @@ public class Main {
     public static void main(String[] args) {
         ShowdownGame game = new ShowdownGame();
         game.start();
+        System.out.printf("Final winner %s \r\n", game.getGameWinner().getName());
     }
 }

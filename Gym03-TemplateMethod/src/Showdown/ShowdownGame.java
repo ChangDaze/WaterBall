@@ -1,54 +1,65 @@
 package Showdown;
 
+import CardGame.CardGame;
+import CardGame.Player;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShowdownGame {
+public class ShowdownGame extends CardGame<ShowdownCard> {
     private List<ShowdownPlayer> players;
     private ShowdownDeck deck;
     private ShowdownDeck abandonedDeck;
 
-    public void start() {
-        players = new ArrayList<>();
-        for (int i = 0 ; i < 4 ; i++) {
+    @Override
+    protected void initialize() {
+        setPlayerLimits(4);
+        setHandDefault(13);
+
+        List<ShowdownPlayer> players = new ArrayList<>();
+        for (int i = 0; i < getPlayerLimits(); i++) {
             ShowdownPlayer player = new ShowdownPlayer();
             player.nameHimself();
             players.add(player);
         }
+        this.players = players;
 
-        deck = new ShowdownDeck();
+        var deck = new ShowdownDeck();
+        for (Suit suit : Suit.values()) {
+            for (Rank rank : Rank.values()) {
+                deck.addCard(new ShowdownCard(rank, suit));
+            }
+        }
         deck.shuffle();
+        this.deck = deck;
 
-        abandonedDeck = new ShowdownDeck();
-
-        dealCard();
-        takeTurn();
-        checkWinner();
+        var abandonedDeck = new ShowdownDeck();
+        this.abandonedDeck = abandonedDeck;
     }
 
-    private void dealCard() {
-        for (int i = 0; i< 13; i++) {
-            for(ShowdownPlayer player : players) {
-                player.drawCard(deck);
+    @Override
+    protected void dealCard() {
+        for (int i = 0; i < getHandDefault(); i++) {
+            for(var player : players) {
+                player.addHand(deck.drawCard());
             }
         }
     }
 
     public void takeTurn() {
-        for (int i = 0; i< 13; i++) {
+        for (int i = 0; i< getHandDefault(); i++) {
 
-            ShowdownPlayer winner = players.getFirst();
-            ShowdownCard winnerCard = winner.show();
+            var winner = players.getFirst();
+            var winnerCard = winner.show(null);
             abandonedDeck.addCard(winnerCard);
 
-
-            for(ShowdownPlayer player : players) {
+            for(var player : players) {
 
                 if (winner.equals(player)) {
                     continue;
                 }
 
-                var showCard = player.show();
+                var showCard = player.show(winnerCard);
                 var showValue = showCard.getRank().getValue();
                 var showSuit = showCard.getSuit().getValue();
                 var winnerValue = winnerCard.getRank().getValue();
@@ -70,9 +81,9 @@ public class ShowdownGame {
     }
 
     public void checkWinner() {
-        ShowdownPlayer winner = players.getFirst();
+        var winner = players.getFirst();
 
-        for(ShowdownPlayer player : players) {
+        for(var player : players) {
 
             if (winner.equals(player)) {
                 continue;
@@ -83,6 +94,7 @@ public class ShowdownGame {
             }
         }
 
+        setGameWinner(winner);
         System.out.printf("%s is winner, points : %d \r\n", winner.getName(), winner.getPoint());
     }
 }

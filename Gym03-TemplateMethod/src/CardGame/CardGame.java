@@ -1,72 +1,62 @@
 package CardGame;
 
-import Showdown.ShowdownCard;
-import Showdown.ShowdownPlayer;
-
 import java.util.List;
 
 public abstract class CardGame<C> {
-    protected List<Player<C>> players;
-    protected Deck<C> deck;
-    protected Deck<C> abandonedDeck;
-    protected int playerLimits;
-    protected int handLimits;
-    protected Player<C> gameWinner;
+    private int playerLimits;
+    private int handDefault;
+    private Player<C> gameWinner;
 
-    protected void start() {
+    public void start() {
         initialize();
         dealCard();
         takeTurn();
         checkWinner();
     }
 
-    /*
-    初始化Player, Deck, 及相關設定
-     */
-    protected abstract void initialize();
-
-    /*
-    發牌階段
-     */
-    protected void dealCard() {
-        for (int i = 0; i< handLimits; i++) {
-            for(Player<C> player : players) {
-                player.addHand(deck.drawCard());
-            }
-        }
+    // <editor-fold desc="getter & setter">
+    public int getPlayerLimits() {
+        return playerLimits;
     }
 
-    /*
-    出牌階段
-     */
-    protected abstract void takeTurn();
-
-    /*
-    決定勝利者
-     */
-    protected void checkWinner() {
-        Player<C> winner = players.getFirst();
-
-        for(Player<C> player : players) {
-
-            if (winner.equals(player)) {
-                continue;
-            }
-
-            if (winnerChallenge(player, winner)) {
-                winner = player;
-            }
-        }
-
-        gameWinner = winner;
+    protected void setPlayerLimits(int playerLimits) {
+        this.playerLimits = playerLimits;
     }
 
-    /*
-    決定新winner的比較
-     */
-    protected abstract boolean winnerChallenge(Player<C> challenger, Player<C> defender);
+    public int getHandDefault() {
+        return handDefault;
+    }
 
-    protected Player<C> getGameWinner() {
+    protected void setHandDefault(int handDefault) {
+        this.handDefault = handDefault;
+    }
+
+    public Player<C> getGameWinner() {
         return gameWinner;
     }
+
+    protected void setGameWinner(Player<C> gameWinner) {
+        this.gameWinner = gameWinner;
+    }
+    // </editor-fold>
+
+    /**
+    初始化Player, Deck, 及相關設定
+     **/
+    protected abstract void initialize();
+
+    /**
+    發牌階段
+     **/
+    protected abstract void dealCard();
+
+    /**
+    出牌階段
+     **/
+    protected abstract void takeTurn();
+
+    /**
+    決定勝利者
+     **/
+    protected abstract void checkWinner();
 }
