@@ -5,6 +5,7 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class ShowdownGame extends CardGame<ShowdownCard, ShowdownDeck, ShowdownPlayer> {
     private final List<ShowdownPlayer> players = new ArrayList<>();
@@ -30,13 +31,20 @@ public class ShowdownGame extends CardGame<ShowdownCard, ShowdownDeck, ShowdownP
 
     @Override
     protected void initialize() {
-        setPlayerLimits(4);
+        setPlayerLimits(4 - getHumanPlayerLimits());
         setHandDefault(13);
     }
 
     @Override
     protected void addNewPlayer(List<ShowdownPlayer> players) {
         ShowdownPlayer player = new ShowdownPlayer();
+        player.nameHimself();
+        players.add(player);
+    }
+
+    @Override
+    protected void addNewHumanPlayer(List<ShowdownPlayer> players) {
+        ShowdownPlayer player = new ShowdownHumanPlayer();
         player.nameHimself();
         players.add(player);
     }

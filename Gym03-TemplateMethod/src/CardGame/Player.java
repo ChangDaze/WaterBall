@@ -13,6 +13,10 @@ public abstract class Player<C> {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public List<C> getHands() {
         return hands;
     }
@@ -23,7 +27,7 @@ public abstract class Player<C> {
      **/
     public void nameHimself() {
         UUID guid = UUID.randomUUID();
-        name = guid.toString();
+        setName(guid.toString());
     }
 
     /**

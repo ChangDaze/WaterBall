@@ -31,13 +31,20 @@ public class UnoGame  extends CardGame<UnoCard, UnoDeck, UnoPlayer> {
 
     @Override
     protected void initialize() {
-        setPlayerLimits(4);
+        setPlayerLimits(4 - getHumanPlayerLimits());
         setHandDefault(5);
     }
 
     @Override
     protected void addNewPlayer(List<UnoPlayer> players) {
         UnoPlayer player = new UnoPlayer();
+        player.nameHimself();
+        players.add(player);
+    }
+
+    @Override
+    protected void addNewHumanPlayer(List<UnoPlayer> players) {
+        UnoPlayer player = new UnoHumanPlayer();
         player.nameHimself();
         players.add(player);
     }

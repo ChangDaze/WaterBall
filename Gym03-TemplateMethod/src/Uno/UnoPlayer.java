@@ -15,7 +15,7 @@ public class UnoPlayer  extends Player<UnoCard> {
 
         for (int i = 0; i < getHands().size(); i++) {
             var hand = getHands().get(i);
-            if(hand.getColor() == currentCard.getColor() || hand.getNumber() == currentCard.getNumber()) {
+            if(checkCard(currentCard, hand)) {
                 getHands().remove(i);
                 System.out.printf("%s show %s %d \r\n", getName(), hand.getColor().toString(), hand.getNumber());
                 return hand;
@@ -24,5 +24,9 @@ public class UnoPlayer  extends Player<UnoCard> {
 
         System.out.printf("%s not show card, draw a card \r\n", getName());
         return null;
+    }
+
+    protected boolean checkCard(UnoCard currentCard, UnoCard showCard) {
+        return showCard.getColor() == currentCard.getColor() || showCard.getNumber() == currentCard.getNumber();
     }
 }

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShowdownPlayer extends Player<ShowdownCard> {
-    private int point = 0;
+    protected int point = 0;
 
     @Override
     public ShowdownCard show(ShowdownCard currentCard){

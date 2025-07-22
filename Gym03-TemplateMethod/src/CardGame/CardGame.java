@@ -6,6 +6,7 @@ import org.apache.commons.lang3.tuple.Pair;
 
 public abstract class CardGame<C, D, P> {
     private int playerLimits;
+    private int humanPlayerLimits;
     private int handDefault;
     private P gameWinner;
 
@@ -16,6 +17,10 @@ public abstract class CardGame<C, D, P> {
 
     protected void setPlayerLimits(int playerLimits) {
         this.playerLimits = playerLimits;
+    }
+
+    protected int getHumanPlayerLimits() {
+        return humanPlayerLimits;
     }
 
     protected int getHandDefault() {
@@ -41,7 +46,8 @@ public abstract class CardGame<C, D, P> {
     }
     // </editor-fold>
 
-    public void start() {
+    public void start(int humanPlayerLimits) {
+        this.humanPlayerLimits = humanPlayerLimits;
         initialize();
         dealPlayers();
         dealDeck();
@@ -63,12 +69,21 @@ public abstract class CardGame<C, D, P> {
         for (int i = 0; i < getPlayerLimits(); i++) {
             addNewPlayer(players);
         }
+
+        for (int i = 0; i < getHumanPlayerLimits(); i++) {
+            addNewHumanPlayer(players);
+        }
     }
 
     /**
      加入新Player入Game
      */
     protected abstract void addNewPlayer(List<P> players);
+
+    /**
+     加入新HumanPlayer入Game
+     */
+    protected abstract void addNewHumanPlayer(List<P> players);
 
     /**
      Deck建立階段
