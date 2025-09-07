@@ -1,0 +1,3 @@
+Out: hello
+Out: world
+Out: Java
