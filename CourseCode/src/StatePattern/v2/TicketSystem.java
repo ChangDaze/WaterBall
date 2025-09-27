@@ -73,7 +73,7 @@ public class TicketSystem {
     }
 
     void enterState(State state) {
-        this.state.enterState();
+        this.state.exitState();
         this.state = state;
         System.out.printf("State updated: %s.\n", state);
         this.state.enterState();
