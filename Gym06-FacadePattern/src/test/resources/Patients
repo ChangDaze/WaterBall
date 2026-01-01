@@ -1,0 +1,29 @@
+[
+  {
+    "id": "P001",
+    "name": "Alice",
+    "gender": "Female",
+    "age": 30,
+    "height": 165.5,
+    "weight": 60.2,
+    "patientCases": []
+  },
+  {
+    "id": "P002",
+    "name": "Bob",
+    "gender": "Female",
+    "age": 18,
+    "height": 175.0,
+    "weight": 75.3,
+    "patientCases": []
+  },
+  {
+    "id": "P003",
+    "name": "Charlie",
+    "gender": "Male",
+    "age": 25,
+    "height": 160.2,
+    "weight": 100.0,
+    "patientCases": []
+  }
+]
