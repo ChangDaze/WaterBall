@@ -1,9 +1,8 @@
-import v1.*;
-import static v1.Level.*;
-import static v1.Logger.declareLoggers;
+import v2.*;
 
 public class Main {
     public static void main(String[] args) {
+        /*
         // 定義根日誌器
         var root = new Logger("root", DEBUG, null, new StandardLayout(), new ConsoleExporter());
 
@@ -26,5 +25,20 @@ public class Main {
         // 創建遊戲物件，並執行遊戲
         Game game = new Game();
         game.start();
+         */
+
+        try {
+            // 1. Load and parse the JSON configuration
+            Configurator.configure("log-config.json");
+            System.out.println("Logging framework initialized successfully.");
+
+            // 2. Start your game
+            Game game = new Game();
+            game.start();
+
+        } catch (Exception e) {
+            System.err.println("Failed to initialize logging framework: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 }
