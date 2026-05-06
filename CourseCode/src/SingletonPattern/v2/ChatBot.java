@@ -1,4 +1,4 @@
-package SingletonPattern.v1;
+package SingletonPattern.v2;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -10,6 +10,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ChatBot {
+
+    private final static ChatBot instance = new ChatBot(); //靜態共用單體
+
+
+    public static ChatBot getInstance() {
+        //單體存取的共用靜態方法
+        return instance;
+    }
+
+    private ChatBot() {
+        //禁止外部存取
+    }
+
     public String chatGetArrayOfStrings(String limit) throws Exception {
         checkThrottling();
         return "ChatBot: " + getArrayOfStrings(limit);
@@ -27,7 +40,7 @@ public class ChatBot {
         return "ChatBot: " + postString(title);
     }
 
-    private String postString(String title) throws Exception{
+    public String postString(String title) throws Exception{
         /*
         * https://ithelp.ithome.com.tw/articles/10301744
         * https://jsonplaceholder.typicode.com/
@@ -113,19 +126,5 @@ public class ChatBot {
         writer.close();
 
         System.out.println("Throttling Value Updated: " + newValue);
-    }
-
-    public static void main(String[] args) throws Exception {
-        ChatBot chatBot1 = new ChatBot();
-        ChatBot chatBot2 = new ChatBot();
-
-        System.out.println(chatBot1.chatGetArrayOfStrings("5"));
-        System.out.println(chatBot2.chatGetArrayOfStrings("10"));
-
-        System.out.println(chatBot1.postString("chatBot1"));
-        System.out.println(chatBot2.postString("chatBot2"));
-
-        System.out.println("chatBot1 " + chatBot1);
-        System.out.println("chatBot1 " + chatBot2);
     }
 }
