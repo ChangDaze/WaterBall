@@ -1,18 +1,22 @@
-package v0;
+package v1;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class RealModel implements Model {
-    private final List<List<BigDecimal>> matrix;
+    private final String _modelName;
 
-    public RealModel(List<List<BigDecimal>> matrix) {
-        this.matrix = matrix;
+    public RealModel(String modelName) {
+        this._modelName = modelName;
     }
 
     @Override
     public List<BigDecimal> linearTransformation(List<BigDecimal> vector) {
+        //取得matrix
+        List<List<BigDecimal>> matrix = RealModels.getModelMatrix(_modelName);
         List<BigDecimal> result = new ArrayList<>();
 
         int numCols = matrix.getFirst().size();
