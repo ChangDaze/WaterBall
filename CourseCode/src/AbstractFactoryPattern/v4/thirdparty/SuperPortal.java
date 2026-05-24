@@ -1,0 +1,17 @@
+package AbstractFactoryPattern.v4.thirdparty;
+
+import AbstractFactoryPattern.v4.Player;
+import AbstractFactoryPattern.v4.Portal;
+import AbstractFactoryPattern.v4.PortalDecorator;
+
+public class SuperPortal extends PortalDecorator {
+    public SuperPortal(Portal next) {
+        super(next);
+    }
+
+    @Override
+    public void access(Player player) {
+        System.out.println("<有機率打廣告>");
+        next.access(player);
+    }
+}
