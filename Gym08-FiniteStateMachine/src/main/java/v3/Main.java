@@ -1,12 +1,4 @@
-import ExampleFSM.C21toC22Trigger;
-import ExampleFSM.C22toC21Trigger;
-import FSM.Transition;
-import v3.Community;
-import v3.ExtraRobotState;
-import v3.Robot;
-import v3.RobotSettingSystem;
-
-import java.util.LinkedHashMap;
+package v3;
 
 public class Main {
     public static void main(String[] args) {
